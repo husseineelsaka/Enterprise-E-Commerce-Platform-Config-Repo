@@ -16,30 +16,42 @@ spring:
         - id: product-service-route
           uri: lb://product-service
           predicates:
-            - Path=/api/products,/api/products/**
+            - Path=/api/v1/products,/api/v1/products**
           filters:
-            - StripPrefix=1
+            - StripPrefix=0
             - AddResponseHeader=X-Platform, microservices-pro
             # 2. ADDED RATE LIMITER FILTER FOR PRODUCT SERVICE
             - name: RequestRateLimiter
               args:
                 redis-rate-limiter.replenishRate: 10
                 redis-rate-limiter.burstCapacity: 20
-                key-resolver: "#{@userKeyResolver}"
+                key-resolver: "#{@ipKeyResolver}"
 
         - id: inventory-service-route
           uri: lb://inventory-service
           predicates:
-            - Path=/api/inventory,/api/inventory/**
+            - Path=/api/v1/inventory,/api/v1/inventory/**
           filters:
-            - StripPrefix=1
+            - StripPrefix=0
             - AddResponseHeader=X-Platform, microservices-pro
             # 3. ADDED RATE LIMITER FILTER FOR INVENTORY SERVICE
             - name: RequestRateLimiter
               args:
                 redis-rate-limiter.replenishRate: 10
                 redis-rate-limiter.burstCapacity: 20
-                key-resolver: "#{@userKeyResolver}"
+                key-resolver: "#{@ipKeyResolver}"
+        - id: order-service-route
+          uri: lb://order-service
+          predicates:
+            - Path=/api/v1/orders,/api/v1/orders/**
+          filters:
+            - StripPrefix=0
+            - AddResponseHeader=X-Platform, microservices-pro
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 10
+                redis-rate-limiter.burstCapacity: 20
+                key-resolver: "#{@ipKeyResolver}"
 
 jwt:
   secret: ${JWT_SECRET:my-super-secret-key-for-jwt-authentication-123456}
