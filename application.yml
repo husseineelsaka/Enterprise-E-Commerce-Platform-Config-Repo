@@ -2,8 +2,15 @@ management:
   endpoints:
     web:
       exposure:
-        include: health, info
-
+        include: health, info, circuitbreakers, circuitbreakerevents
+  endpoint:
+    circuitbreakers:
+      enabled: true
+    circuitbreakerevents:
+      enabled: true
+  health:
+    circuitbreakers:
+      enabled: true
 logging:
   level:
     root: INFO
