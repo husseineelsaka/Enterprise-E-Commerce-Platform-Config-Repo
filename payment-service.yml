@@ -1,0 +1,5 @@
+server:
+  port: 8084
+
+service:
+  message: Payment service loaded from Github repository

@@ -1,0 +1,16 @@
+server:
+  port: 8761
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        health,info
+
+service:
+  message: Eureka server config loaded from Github

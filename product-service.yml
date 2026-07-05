@@ -1,0 +1,21 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+server:
+  port: 8081
+
+service:
+  message: Product service loaded from Github repository
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/productdb
+    username: postgres
+    password: "0000"
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
