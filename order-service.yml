@@ -29,4 +29,8 @@ resilience4j:
         exponential-backoff-multiplier: 2
         retry-exceptions:
           - java.lang.RuntimeException
-  
+  bulkhead:
+    instances:
+      paymentService:
+        max-concurrent-calls: 10    # max 10 simultaneous calls to Payment
+        max-wait-duration: 0ms      # fail immediately if full
