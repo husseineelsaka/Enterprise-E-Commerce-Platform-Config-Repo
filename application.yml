@@ -2,7 +2,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: health, info, circuitbreakers, circuitbreaker , circuitbreakerevents,
+        include: health, info, circuitbreakers, circuitbreakerevents
   endpoint:
     circuitbreakers:
       enabled: true
@@ -13,7 +13,7 @@ management:
       enabled: true
 logging:
   level:
-    root: INFO
+    INFO: INFO
 
 service:
   message: Common config loaded from Github repository
