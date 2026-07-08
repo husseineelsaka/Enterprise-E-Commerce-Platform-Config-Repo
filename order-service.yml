@@ -23,14 +23,22 @@ resilience4j:
   retry:
     instances:
       paymentService:
-        max-attempts: 3
-        wait-duration: 500ms
+        max-attempts: 3             # try 3 times total
+        wait-duration: 500ms        # wait 500ms between attempts
         enable-exponential-backoff: true
-        exponential-backoff-multiplier: 2
+        exponential-backoff-multiplier: 2  # 500ms → 1s → 2s
         retry-exceptions:
-          - java.lang.RuntimeException
+          - java.lang.RuntimeException   # only retry on these
+        ignore-exceptions:
+          - java.lang.IllegalArgumentException  # never retry on these
   bulkhead:
     instances:
       paymentService:
         max-concurrent-calls: 10    # max 10 simultaneous calls to Payment
         max-wait-duration: 0ms      # fail immediately if full
+
+  timelimiter:
+    instances:
+      paymentService:
+        timeout-duration: 2s         # fail if Payment takes > 2 seconds
+        cancel-running-future: true  # cancel the thread on timeout
