@@ -42,3 +42,7 @@ resilience4j:
       paymentService:
         timeout-duration: 2s         # fail if Payment takes > 2 seconds
         cancel-running-future: true  # cancel the thread on timeout
+
+logging:
+  level:
+    io.github.resilience4j.retry: DEBUG
