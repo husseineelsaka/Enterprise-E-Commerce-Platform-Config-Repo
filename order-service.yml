@@ -7,8 +7,19 @@ spring:
     bootstrap-servers: localhost:9092 
   
     producer: 
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer 
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer 
+      key-serializer: ...StringSerializer 
+      value-serializer: ...JsonSerializer 
+
+    consumer: 
+      group-id: ${spring.application.name} 
+      key-deserializer: ...StringDeserializer 
+      value-deserializer: ...JsonDeserializer 
+      properties: 
+        spring.json.trusted.packages: "com.raya.*" 
+      auto-offset-reset: earliest
+ 
+
+
 
 eureka:
   client:
