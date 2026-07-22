@@ -18,6 +18,10 @@ spring:
     redis: 
       host: localhost 
       port: 6379 
+    datasource:
+      url: jdbc:postgresql://localhost:5433/productdb
+      username: postgres
+      password: "1234"
   cache: 
     type: redis 
     redis: 
