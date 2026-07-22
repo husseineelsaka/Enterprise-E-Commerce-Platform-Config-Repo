@@ -13,7 +13,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5433/productdb
     username: postgres
-    password: "1234"
+    password: postgres
     driver-class-name: org.postgresql.Driver
   data: 
     redis: 
