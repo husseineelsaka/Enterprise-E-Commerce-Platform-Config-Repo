@@ -4,7 +4,7 @@ server:
 
 spring: 
   kafka: 
-    bootstrap-servers: localhost:9092 
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:9092} 
   
     producer: 
       key-serializer: org.apache.kafka.common.serialization.StringSerializer 
@@ -24,12 +24,24 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8761/eureka/}
   instance:
     prefer-ip-address: true
 
 service:
   message: Order service loaded from Github repository
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: ${MANAGEMENT_ZIPKIN_TRACING_ENDPOINT:http://zipkin:9411/api/v2/spans}
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,circuitbreakers,circuitbreakerevents,bulkheads
 
 resilience4j:
   circuitbreaker:

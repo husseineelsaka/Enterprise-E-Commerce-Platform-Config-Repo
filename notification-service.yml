@@ -4,14 +4,14 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8761/eureka/}
 
 service:
   message: Notification service loaded from Github repository
 
 spring:
   kafka: 
-    bootstrap-servers: localhost:9092 
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:9092} 
   
     consumer: 
       group-id: notification-service 
@@ -25,10 +25,16 @@ spring:
         spring.json.use.type.headers: false
 
 management:
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: ${MANAGEMENT_ZIPKIN_TRACING_ENDPOINT:http://zipkin:9411/api/v2/spans}
   endpoints:
     web:
       exposure:
-        include: health,info,kafka
+        include: health,info,kafka,prometheus
   health:
     kafka:
       enabled: true

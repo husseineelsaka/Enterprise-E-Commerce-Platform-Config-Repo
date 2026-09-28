@@ -1,8 +1,14 @@
 management:
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: ${MANAGEMENT_ZIPKIN_TRACING_ENDPOINT:http://zipkin:9411/api/v2/spans}
   endpoints:
     web:
       exposure:
-        include: health, info, circuitbreakers, circuitbreakerevents
+        include: health, info, prometheus, metrics, circuitbreakers, circuitbreakerevents
   endpoint:
     circuitbreakers:
       enabled: true
